@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可以成为我的恋人吗？❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 爱心飘落效果 */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            transform: rotate(45deg);
+            opacity: 0.7;
+            animation: fall linear forwards;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            z-index: 10;
+            border: 3px solid #ff6b6b;
+        }
+        
+        h1 {
+            color: #e84393;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #yesBtn {
+            background: linear-gradient(45deg, #ff6b6b, #e84393);
+            color: white;
+            box-shadow: 0 5px 15px rgba(232, 67, 147, 0.4);
+        }
+        
+        #yesBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(232, 67, 147, 0.6);
+        }
+        
+        #yesBtn:active {
+            transform: translateY(0);
+        }
+        
+        #noBtn {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            color: white;
+            box-shadow: 0 5px 15px rgba(116, 185, 255, 0.4);
+            position: relative;
+            transition: all 0.1s ease;
+        }
+        
+        .success-message {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+            color: white;
+            border-radius: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💕 可以成为我的恋人吗？ 💕</h1>
+        <p class="subtitle">请认真选择你的答案...</p>
+        
+        <div class="buttons">
+            <button class="btn" id="yesBtn">当然可以！❤️</button>
+            <button class="btn" id="noBtn">再考虑一下...</button>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <h2>🎉 太棒了！ 🎉</h2>
+            <p>从这一刻起，我们的故事开始了～</p>
+            <p>你是我最珍贵的选择！ 💖</p>
+        </div>
+    </div>
+
+    <script>
+        // 创建爱心飘落效果
+        function createHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                
+                // 移除爱心元素
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 300);
+        }
+
+        // 获取元素
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const successMessage = document.getElementById('successMessage');
+        
+        // 初始化爱心效果
+        createHearts();
+        
+        // 点击"可以"按钮的逻辑
+        yesBtn.addEventListener('click', () => {
+            // 显示成功消息
+            successMessage.style.display = 'block';
+            
+            // 隐藏按钮
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            
+            // 增加爱心效果
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = '1s';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 1000);
+                }, i * 100);
+            }
+            
+            // 更改标题
+            document.querySelector('h1').textContent = '💖 我们在一起啦！ 💖';
+            document.querySelector('.subtitle').style.display = 'none';
+        });
+        
+        // "不行"按钮交互逻辑 - 鼠标靠近时移动
+        noBtn.addEventListener('mouseover', (e) => {
+            // 随机生成新位置
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - noBtn.offsetWidth - 20;
+            const maxY = containerRect.height - noBtn.offsetHeight - 20;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            // 设置按钮新位置
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+        
+        // 点击"不行"按钮的提示
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // 创建临时提示
+            const tip = document.createElement('div');
+            tip.textContent = '不要拒绝嘛～再想想？';
+            tip.style.position = 'fixed';
+            tip.style.background = '#ffeaa7';
+            tip.style.padding = '10px 20px';
+            tip.style.borderRadius = '20px';
+            tip.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
+            tip.style.zIndex = '1000';
+            tip.style.fontWeight = 'bold';
+            tip.style.color = '#e17055';
+            
+            // 随机位置显示提示
+            const x = e.clientX + (Math.random() * 100 - 50);
+            const y = e.clientY - 50;
+            tip.style.left = x + 'px';
+            tip.style.top = y + 'px';
+            
+            document.body.appendChild(tip);
+            
+            // 3秒后移除提示
+            setTimeout(() => {
+                tip.remove();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
