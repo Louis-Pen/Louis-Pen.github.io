@@ -71,6 +71,7 @@
             width: 90%;
             z-index: 10;
             border: 3px solid #ff6b6b;
+            position: relative;
         }
         
         h1 {
@@ -124,8 +125,8 @@
             background: linear-gradient(45deg, #74b9ff, #0984e3);
             color: white;
             box-shadow: 0 5px 15px rgba(116, 185, 255, 0.4);
-            position: relative;
-            transition: all 0.1s ease;
+            position: fixed; /* 使用fixed定位，使按钮可以在整个页面内移动 */
+            transition: left 0.3s, top 0.3s;
         }
         
         .success-message {
@@ -165,7 +166,7 @@
         <h1>💕 可以成为我的恋人吗？ 💕</h1>
         <p class="subtitle">请认真选择你的答案...</p>
         
-        <div class="buttons">
+        <div>
             <button class="btn" id="yesBtn">当然可以！❤️</button>
             <button class="btn" id="noBtn">再考虑一下...</button>
         </div>
@@ -231,18 +232,15 @@
         
         // "不行"按钮交互逻辑 - 鼠标靠近时移动
         noBtn.addEventListener('mouseover', (e) => {
-            // 随机生成新位置
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
+            // 计算按钮可以移动的最大范围
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
             
-            const maxX = containerRect.width - noBtn.offsetWidth - 20;
-            const maxY = containerRect.height - noBtn.offsetHeight - 20;
-            
+            // 生成随机位置
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY;
             
             // 设置按钮新位置
-            noBtn.style.position = 'absolute';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
         });
@@ -250,31 +248,7 @@
         // 点击"不行"按钮的提示
         noBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // 创建临时提示
-            const tip = document.createElement('div');
-            tip.textContent = '不要拒绝嘛～再想想？';
-            tip.style.position = 'fixed';
-            tip.style.background = '#ffeaa7';
-            tip.style.padding = '10px 20px';
-            tip.style.borderRadius = '20px';
-            tip.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
-            tip.style.zIndex = '1000';
-            tip.style.fontWeight = 'bold';
-            tip.style.color = '#e17055';
-            
-            // 随机位置显示提示
-            const x = e.clientX + (Math.random() * 100 - 50);
-            const y = e.clientY - 50;
-            tip.style.left = x + 'px';
-            tip.style.top = y + 'px';
-            
-            document.body.appendChild(tip);
-            
-            // 3秒后移除提示
-            setTimeout(() => {
-                tip.remove();
-            }, 3000);
+            alert('不要拒绝嘛～再想想？');
         });
     </script>
 </body>
